@@ -6,44 +6,65 @@
   <title>Dabby the Unicorn: Spam Fighter</title>
   <style>
     body {
-      background: linear-gradient(to bottom right, #ffe0f7, #e6f7ff);
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #ffe0f7, #c2f0ff, #f9d5ff, #d6faff);
+      background-size: 600% 600%;
+      animation: sparkleGradient 15s ease infinite;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #333;
       text-align: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
     }
+
+    @keyframes sparkleGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     img {
       max-width: 300px;
       margin: 20px auto;
+      display: block;
     }
+
     h1 {
-      font-size: 2.2em;
+      font-size: 2.5em;
       color: #d63384;
-      margin-bottom: 0.2em;
+      margin-bottom: 0.4em;
     }
+
     p {
-      font-size: 1.1em;
-      margin: 10px auto;
-      max-width: 600px;
+      font-size: 1.2em;
+      margin: 12px auto;
+      max-width: 650px;
+      line-height: 1.6;
     }
+
     .button {
       display: inline-block;
-      margin-top: 25px;
-      padding: 15px 30px;
-      font-size: 1.1em;
-      background-color: #ff66b2;
+      margin-top: 35px;
+      padding: 15px 40px;
+      font-size: 1.2em;
+      background: linear-gradient(to right, #ff66b2, #ff99cc);
       color: white;
       text-decoration: none;
-      border-radius: 10px;
-      transition: background 0.3s ease;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+      transition: all 0.3s ease;
     }
+
     .button:hover {
-      background-color: #ff338f;
+      background: linear-gradient(to right, #ff338f, #ff66b2);
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
+      transform: scale(1.03);
     }
+
     .footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #777;
+      margin-top: 50px;
+      font-size: 0.95em;
+      color: #555;
     }
   </style>
 </head>
@@ -58,4 +79,3 @@
   </div>
 </body>
 </html>
-
