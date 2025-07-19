@@ -12,7 +12,7 @@
       color: #fff;
       text-align: center;
       overflow: hidden;
-      background: radial-gradient(circle at top left, #ff8ee3, #6e00a8);
+      background: linear-gradient(to bottom right, #6e00a8, #ff8ee3);
     }
 
     canvas {
@@ -70,12 +70,6 @@
       color: #f0c6ec;
       text-shadow: 0 0 5px #00000044;
     }
-
-    @media (max-width: 600px) {
-      h1 { font-size: 1.8em; }
-      p { font-size: 1em; }
-      .button { font-size: 1em; padding: 12px 24px; }
-    }
   </style>
 </head>
 <body>
@@ -83,7 +77,7 @@
   <div class="content">
     <img src="dabby.png" alt="Dabby the Unicorn" />
     <h1>Hi, I'm Dabby 🦄</h1>
-    <p>Since June 1, 2025, I’ve helped fight off over <strong id="dabbyCount">150,000+</strong> spam bots.</p>
+    <p>Since June 1, 2025, I’ve helped fight off over <strong><span id="bot-counter">150,000</span>+ spam bots</strong>.</p>
     <p>It’s 2025, and apparently even family-friendly festivals need firewalls. If you're a real human, hit the button below to enjoy the full Out at the Fair experience.</p>
     <a class="button" href="https://outatthefair.com">Enter the Site</a>
     <div class="footer">
@@ -91,13 +85,13 @@
     </div>
   </div>
 
-  <!-- Glitter Animation Script -->
   <script>
+    // Glitter effect
     const canvas = document.getElementById('glitterCanvas');
     const ctx = canvas.getContext('2d');
     let glitter = [];
 
-    function resize() {
+    function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
@@ -106,55 +100,52 @@
       glitter = Array.from({ length: 150 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 2 + 0.5,
+        radius: Math.random() * 2 + 1,
         dx: Math.random() * 0.6 - 0.3,
-        dy: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.7 + 0.3,
-        color: `hsla(${Math.random() * 360}, 100%, 75%, 0.8)`
+        dy: Math.random() * 1.5 + 0.4,
+        opacity: Math.random() * 0.5 + 0.5
       }));
     }
 
-    function draw() {
+    function drawGlitter() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      glitter.forEach((g) => {
+      glitter.forEach(g => {
         ctx.beginPath();
         ctx.arc(g.x, g.y, g.radius, 0, Math.PI * 2);
-        ctx.fillStyle = g.color;
+        ctx.fillStyle = `rgba(255,255,255,${g.opacity})`;
         ctx.fill();
         g.x += g.dx;
         g.y += g.dy;
-        if (g.y > canvas.height || g.x < 0 || g.x > canvas.width) {
+        if (g.y > canvas.height) {
           g.y = 0;
           g.x = Math.random() * canvas.width;
         }
       });
-      requestAnimationFrame(draw);
+      requestAnimationFrame(drawGlitter);
     }
 
     window.addEventListener('resize', () => {
-      resize();
+      resizeCanvas();
       createGlitter();
     });
 
-    resize();
+    resizeCanvas();
     createGlitter();
-    draw();
+    drawGlitter();
   </script>
 
-  <!-- Dabby Counter Script -->
   <script>
-    const baseCount = 150000;
-    let currentCount = parseInt(localStorage.getItem("dabbySpamCount")) || baseCount;
-    const increase = Math.floor(Math.random() * 25) + 5;
-    currentCount += increase;
-    localStorage.setItem("dabbySpamCount", currentCount);
+    // Auto-increasing counter
+    let counterElement = document.getElementById('bot-counter');
+    let currentCount = 150000;
 
-    window.addEventListener("DOMContentLoaded", () => {
-      const counterElement = document.getElementById("dabbyCount");
-      if (counterElement) {
-        counterElement.textContent = currentCount.toLocaleString() + "+";
-      }
-    });
+    function updateCounter() {
+      const increase = Math.floor(Math.random() * 8) + 1; // +1 to +8 bots
+      currentCount += increase;
+      counterElement.textContent = currentCount.toLocaleString();
+    }
+
+    setInterval(updateCounter, 2000); // Every 2 seconds
   </script>
 </body>
 </html>
