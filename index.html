@@ -8,44 +8,72 @@
     body {
       margin: 0;
       padding: 0;
-      background: linear-gradient(135deg, #ffe0f7, #c2f0ff, #f9d5ff, #d6faff);
-      background-size: 600% 600%;
-      animation: sparkleGradient 15s ease infinite;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       color: #333;
-      text-align: center;
-      padding: 60px 20px;
+      background: linear-gradient(135deg, #fff0f6, #e0f7ff, #f9eaff);
+      background-size: 600% 600%;
+      animation: backgroundFade 20s ease infinite;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    @keyframes sparkleGradient {
+    @keyframes backgroundFade {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
 
+    .glitter {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      background-image: url('https://i.imgur.com/2QZ4V6D.png'); /* transparent glitter tile */
+      animation: glitterRain 60s linear infinite;
+      opacity: 0.3;
+      z-index: 0;
+    }
+
+    @keyframes glitterRain {
+      0% { background-position: 0 -100%; }
+      100% { background-position: 0 100%; }
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 60px 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
     img {
-      max-width: 300px;
-      margin: 20px auto;
+      max-width: 280px;
+      width: 80%;
+      margin: 10px auto 25px;
       display: block;
     }
 
     h1 {
-      font-size: 2.5em;
+      font-size: 2.4em;
       color: #d63384;
-      margin-bottom: 0.4em;
+      margin-bottom: 0.3em;
     }
 
     p {
-      font-size: 1.2em;
-      margin: 12px auto;
-      max-width: 650px;
+      font-size: 1.15em;
       line-height: 1.6;
+      margin: 12px auto;
+      max-width: 600px;
     }
 
     .button {
       display: inline-block;
-      margin-top: 35px;
-      padding: 15px 40px;
+      margin-top: 30px;
+      padding: 16px 36px;
       font-size: 1.2em;
       background: linear-gradient(to right, #ff66b2, #ff99cc);
       color: white;
@@ -57,25 +85,48 @@
 
     .button:hover {
       background: linear-gradient(to right, #ff338f, #ff66b2);
-      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.6);
-      transform: scale(1.03);
+      box-shadow: 0 8px 25px rgba(255, 105, 180, 0.6);
+      transform: scale(1.05);
     }
 
     .footer {
       margin-top: 50px;
-      font-size: 0.95em;
+      font-size: 0.9em;
       color: #555;
+    }
+
+    @media screen and (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      .button {
+        font-size: 1em;
+        padding: 14px 28px;
+      }
+
+      p {
+        font-size: 1em;
+        padding: 0 10px;
+      }
+
+      img {
+        max-width: 220px;
+      }
     }
   </style>
 </head>
 <body>
-  <img src="dabby.png" alt="Dabby the Unicorn" />
-  <h1>Hi, I'm Dabby 🦄</h1>
-  <p>Since June 1, 2025, I’ve helped fight off over <strong>150,000+ spam bots</strong>.</p>
-  <p>It’s 2025, and apparently even family-friendly festivals need firewalls. If you're a real human, hit the button below to enjoy the full Out at the Fair experience.</p>
-  <a class="button" href="https://outatthefair.com">Enter the Site</a>
-  <div class="footer">
-    🛡️ Powered by Dabby the Unicorn and a very tired firewall team at Cloudflare.
+  <div class="glitter"></div>
+  <div class="content">
+    <img src="dabby.png" alt="Dabby the Unicorn" />
+    <h1>Hi, I'm Dabby 🦄</h1>
+    <p>Since June 1, 2025, I’ve helped fight off over <strong>150,000+ spam bots</strong>.</p>
+    <p>It’s 2025, and apparently even family-friendly festivals need firewalls. If you're a real human, hit the button below to enjoy the full Out at the Fair experience.</p>
+    <a class="button" href="https://outatthefair.com">Enter the Site</a>
+    <div class="footer">
+      🛡️ Powered by Dabby the Unicorn and a very tired firewall team at Cloudflare.
+    </div>
   </div>
 </body>
 </html>
