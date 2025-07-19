@@ -90,47 +90,64 @@
     const ctx = canvas.getContext('2d');
     let glitter = [];
 
-    function resize() {
+    const colors = ['#ffffff', '#ffccff', '#ffeeaa', '#ffccee', '#f0f0f0', '#d4a5ff'];
+
+    function resizeCanvas() {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     }
 
     function createGlitter() {
-      glitter = Array.from({ length: 100 }, () => ({
+      glitter = Array.from({ length: 150 }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 1.8 + 0.6,
-        dx: Math.random() * 0.5 - 0.25,
-        dy: Math.random() * 0.5 + 0.2,
-        opacity: Math.random() * 0.8 + 0.2
+        radius: Math.random() * 1.5 + 0.5,
+        dx: (Math.random() - 0.5) * 0.6,
+        dy: Math.random() * 1 + 0.5,
+        opacity: Math.random(),
+        flicker: Math.random() * 0.05,
+        color: colors[Math.floor(Math.random() * colors.length)]
       }));
     }
 
-    function draw() {
+    function drawGlitter() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       glitter.forEach((g) => {
         ctx.beginPath();
         ctx.arc(g.x, g.y, g.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${g.opacity})`;
+        ctx.fillStyle = `rgba(${hexToRgb(g.color)}, ${g.opacity})`;
         ctx.fill();
+
         g.x += g.dx;
         g.y += g.dy;
-        if (g.y > canvas.height) {
-          g.y = 0;
+        g.opacity += g.flicker;
+        if (g.opacity > 1 || g.opacity < 0.3) g.flicker *= -1;
+
+        if (g.y > canvas.height || g.x < 0 || g.x > canvas.width) {
           g.x = Math.random() * canvas.width;
+          g.y = -10;
+          g.opacity = Math.random();
         }
       });
-      requestAnimationFrame(draw);
+      requestAnimationFrame(drawGlitter);
+    }
+
+    function hexToRgb(hex) {
+      const bigint = parseInt(hex.replace('#', ''), 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return `${r},${g},${b}`;
     }
 
     window.addEventListener('resize', () => {
-      resize();
+      resizeCanvas();
       createGlitter();
     });
 
-    resize();
+    resizeCanvas();
     createGlitter();
-    draw();
+    drawGlitter();
   </script>
 </body>
 </html>
